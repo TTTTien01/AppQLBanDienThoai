@@ -97,8 +97,11 @@ public class ChitietActivity extends AppCompatActivity {
         sanPhamMoi = (SanPhamMoi) getIntent().getSerializableExtra("chitiet");
         tensp.setText(sanPhamMoi.getTensanpham());
         mota.setText(sanPhamMoi.getMota());
-        Glide.with(getApplicationContext()).load(sanPhamMoi.getHinhanh()).into(imghinhanh);
-        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+        if(sanPhamMoi.getHinhanh().contains("http")){
+            Glide.with(getApplicationContext()).load(sanPhamMoi.getHinhanh()).into(imghinhanh);
+        }else{
+            Glide.with(getApplicationContext()).load(Utils.BASE_URL+"images/"+sanPhamMoi.getHinhanh()).into(imghinhanh);
+        }        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         giasp.setText("Giá: "+ decimalFormat.format(Double.parseDouble(sanPhamMoi.getGiasp()))+"VND");
         Integer[] so = new Integer[]{1,2,3,4,5,6,7,8,9,10};
         ArrayAdapter<Integer> adapterspin = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,so);

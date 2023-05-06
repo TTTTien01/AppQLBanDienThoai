@@ -42,13 +42,10 @@ public class ChiTietAdapter extends RecyclerView.Adapter<ChiTietAdapter.MyViewHo
         Item item = itemList.get(position);
         holder.txtten.setText(item.getTensanpham() + "");
         holder.txtsoluong.setText("Số lương: "+ item.getSoluong()+ "");
-       // Glide.with(context).load(item.getHinhanh()).into(holder.imagechitiet);
         if(item.getHinhanh().contains("http")){
             Glide.with(context).load(item.getHinhanh()).into(holder.imagechitiet);
         }else{
-            String hinhanh = Utils.BASE_URL+"images/"+item.getHinhanh();
-            Glide.with(context).load(hinhanh).into(holder.imagechitiet);
-
+            Glide.with(context).load(Utils.BASE_URL+"images/"+item.getHinhanh()).into(holder.imagechitiet);
         }
     }
 

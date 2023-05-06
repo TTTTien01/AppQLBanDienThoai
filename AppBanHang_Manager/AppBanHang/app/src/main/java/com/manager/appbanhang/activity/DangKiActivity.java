@@ -95,14 +95,14 @@ public class DangKiActivity extends AppCompatActivity {
 
     private void postData(String str_email, String str_username, String str_pass, String str_phonenumber,String uid){
         //post data
-        compositeDisposable.add(apiBanHang.dangKi(str_username,str_email,str_pass,str_phonenumber,uid)
+        compositeDisposable.add(apiBanHang.dangKi(str_username,str_email,"onfirebase",str_phonenumber,uid)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         userModel -> {
                             if(userModel.isSuccess()){
                                 Utils.user_current.setEmail(str_email);
-                                Utils.user_current.setPass(str_pass);
+                                Utils.user_current.setPass("onfirebase");
                                 Intent intent = new Intent(getApplicationContext(), DangNhapActivity.class);
                                 startActivity(intent);
                                 finish();

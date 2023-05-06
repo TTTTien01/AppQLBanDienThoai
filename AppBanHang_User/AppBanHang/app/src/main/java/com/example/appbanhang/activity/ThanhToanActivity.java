@@ -146,7 +146,7 @@ public class ThanhToanActivity extends AppCompatActivity {
                                     messageModel -> {
                                         //gui thong bao
                                         pushNotiToUser();
-                                        Toast.makeText(getApplicationContext(),"Đặt hàng thành công!!!",Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(getApplicationContext(),"Đặt hàng thành công!!!",Toast.LENGTH_SHORT).show();
                                         Utils.mangmuahang.clear();
                                         iddonhang = Integer.parseInt(messageModel.getIddonhang());
                                         requestZalo();

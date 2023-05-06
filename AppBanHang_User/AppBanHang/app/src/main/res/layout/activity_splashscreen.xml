@@ -4,15 +4,24 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:src="@drawable/person_24"
     tools:context=".activity.SplashscreenActivity">
+    <ImageView
+        app:layout_constraintTop_toTopOf="parent"
+        android:adjustViewBounds="true"
+        android:src="@drawable/ic_page_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+    </ImageView>
     <TextView
         android:id="@+id/splashtext"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
-        android:textSize="18sp"
+        android:textSize="30sp"
         android:textColor="#1B8A17"
         android:textStyle="bold"
-        android:text="APP BÁN HÀNG"
+        android:text="Four-T Shop"
         android:gravity="center"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"/>

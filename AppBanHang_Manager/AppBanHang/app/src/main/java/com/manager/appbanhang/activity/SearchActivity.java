@@ -79,15 +79,20 @@ public class SearchActivity extends AppCompatActivity {
 
     private void getDataSearch(String str_search) {
         sanPhamMoiList.clear();
-        //String str_search = edtsearch.getText().toString().trim();
         compositeDisposable.add(apiBanHang.search(str_search)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         sanPhamMoiModel -> {
-                            sanPhamMoiList = sanPhamMoiModel.getResult();
-                            adapterDt = new DienThoaiAdapter(getApplicationContext(), sanPhamMoiList);
-                            recyclerView.setAdapter(adapterDt);
+                            if(sanPhamMoiModel.isSuccess()) {
+                                sanPhamMoiList = sanPhamMoiModel.getResult();
+                                adapterDt = new DienThoaiAdapter(getApplicationContext(), sanPhamMoiList);
+                                recyclerView.setAdapter(adapterDt);
+                            }else {
+                               // Toast.makeText(getApplicationContext(),sanPhamMoiModel.getMessage(),Toast.LENGTH_LONG).show();
+                                sanPhamMoiList.clear();
+                                adapterDt.notifyDataSetChanged();
+                            }
                         },
                         throwable -> {
                             Toast.makeText(getApplicationContext(),throwable.getMessage(),Toast.LENGTH_LONG).show();

@@ -15,6 +15,7 @@ import com.example.appbanhang.R;
 import com.example.appbanhang.retrofit.ApiBanHang;
 import com.example.appbanhang.retrofit.RetrofitClient;
 import com.example.appbanhang.utils.Utils;
+import com.google.firebase.auth.FirebaseAuth;
 
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
@@ -44,29 +45,14 @@ public class ResetPassActivity extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"Bạn chưa nhập Email!!", Toast.LENGTH_SHORT).show();
                 }else{
                     progressBar.setVisibility(View.VISIBLE);
-                    compositeDisposable.add(apiBanHang.resetPass(str_email)
-                            .subscribeOn(Schedulers.io())
-                            .observeOn(AndroidSchedulers.mainThread())
-                            .subscribe(
-                                    userModel -> {
-                                        if(userModel.isSuccess()){
-                                            Toast.makeText(getApplicationContext(),userModel.getMessage(), Toast.LENGTH_SHORT).show();
-                                            //Thành công chuyển về màng hình đăng nhập
-                                            Intent intent = new Intent(getApplicationContext(), DangNhapActivity.class);
-                                            startActivity(intent);
-                                            finish();
-                                        }else{
-                                            Toast.makeText(getApplicationContext(),userModel.getMessage(), Toast.LENGTH_SHORT).show();
-                                        }
-                                        //sau khi có dl trả về
-                                        progressBar.setVisibility(View.INVISIBLE);
-                                    },
-                                    throwable -> {
-                                        Toast.makeText(getApplicationContext(),throwable.getMessage(), Toast.LENGTH_SHORT).show();
-                                        progressBar.setVisibility(View.INVISIBLE);
-                                    }
-                            ));
-
+                    //resetpass onfirebase
+                    FirebaseAuth.getInstance().sendPasswordResetEmail(str_email)
+                            .addOnCompleteListener(task -> {
+                                if(task.isSuccessful()){
+                                    Toast.makeText(getApplicationContext(),"Kiểm tra Email của bạn", Toast.LENGTH_SHORT).show();
+                                }
+                                finish();
+                            });
                 }
             }
         });

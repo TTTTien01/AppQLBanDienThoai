@@ -61,7 +61,7 @@ public class DienThoaiActivity extends AppCompatActivity {
             public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
                 if(isLoading == false){
-                    if(linearLayoutManager.findLastCompletelyVisibleItemPosition()==sanPhamMoiList.size()-1){
+                    if(linearLayoutManager.findLastCompletelyVisibleItemPosition() == sanPhamMoiList.size()-1){
                         isLoading = true;
                         loadMore();
                     }
@@ -100,7 +100,7 @@ public class DienThoaiActivity extends AppCompatActivity {
                 .subscribe(
                         sanPhamMoiModel -> {
                             if (sanPhamMoiModel.isSuccess()){
-                                if(adapterDt ==null){
+                                if(adapterDt == null){
                                     sanPhamMoiList = sanPhamMoiModel.getResult();
                                     adapterDt = new DienThoaiAdapter(getApplicationContext(), sanPhamMoiList);
                                     recyclerView.setAdapter(adapterDt);
@@ -138,7 +138,6 @@ public class DienThoaiActivity extends AppCompatActivity {
     private void AnhXa() {
         toolbar = findViewById(R.id.toobar);
         recyclerView = findViewById(R.id.recyclerview_dt);
-        //RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
         recyclerView.setLayoutManager(linearLayoutManager);
         recyclerView.setHasFixedSize(true);

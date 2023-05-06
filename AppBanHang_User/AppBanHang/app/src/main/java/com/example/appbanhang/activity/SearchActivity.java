@@ -86,9 +86,15 @@ public class SearchActivity extends AppCompatActivity {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
                         sanPhamMoiModel -> {
-                            sanPhamMoiList = sanPhamMoiModel.getResult();
-                            adapterDt = new DienThoaiAdapter(getApplicationContext(), sanPhamMoiList);
-                            recyclerView.setAdapter(adapterDt);
+                            if(sanPhamMoiModel.isSuccess()) {
+                                sanPhamMoiList = sanPhamMoiModel.getResult();
+                                adapterDt = new DienThoaiAdapter(getApplicationContext(), sanPhamMoiList);
+                                recyclerView.setAdapter(adapterDt);
+                            }else {
+                                // Toast.makeText(getApplicationContext(),sanPhamMoiModel.getMessage(),Toast.LENGTH_LONG).show();
+                                sanPhamMoiList.clear();
+                                adapterDt.notifyDataSetChanged();
+                            }
                         },
                         throwable -> {
                             Toast.makeText(getApplicationContext(),throwable.getMessage(),Toast.LENGTH_LONG).show();

@@ -77,10 +77,11 @@ public class DangNhapActivity extends AppCompatActivity {
                     Paper.book().write("email", str_email);
                     Paper.book().write("password", str_pass);
                     if(user != null ){
-                        //user da co dang nhap
+                        //user da co dang nhap firebase chưa signout
                         dangNhap(str_email,str_pass);
                     }else {
                         //user da signout
+                        //có 2 nơi quản lý mật khẩu 1 là firebase, 2 là hosting
                         firebaseAuth.signInWithEmailAndPassword(str_email,str_pass)
                                 .addOnCompleteListener(DangNhapActivity.this, new OnCompleteListener<AuthResult>() {
                                     @Override

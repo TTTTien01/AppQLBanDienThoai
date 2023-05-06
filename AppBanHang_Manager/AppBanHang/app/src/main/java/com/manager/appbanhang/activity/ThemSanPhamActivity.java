@@ -162,8 +162,8 @@ public class ThemSanPhamActivity extends AppCompatActivity {
     private void themsanpham() {
         String str_tensp = binding.tensp.getText().toString().trim();
         String str_giasp = binding.giasp.getText().toString().trim();
-        String str_hinhanh = binding.hinhanh.getText().toString().trim();
         String str_mota = binding.mota.getText().toString().trim();
+        String str_hinhanh = binding.hinhanh.getText().toString().trim();
         if(TextUtils.isEmpty(str_tensp) || TextUtils.isEmpty(str_giasp) || TextUtils.isEmpty(str_hinhanh) || TextUtils.isEmpty(str_mota) || loai == 0 ){
             Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
         }else {
@@ -176,6 +176,7 @@ public class ThemSanPhamActivity extends AppCompatActivity {
                                 Toast.makeText(this, messageModel.getMessage(), Toast.LENGTH_SHORT).show();
                                 Intent intent = new Intent(getApplicationContext(),QuanLyActivity.class);
                                 startActivity(intent);
+                                finish();
                             }else{
                                 Toast.makeText(this, messageModel.getMessage(), Toast.LENGTH_SHORT).show();
                             }

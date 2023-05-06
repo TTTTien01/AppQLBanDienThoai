@@ -193,7 +193,7 @@ public class MainActivity extends AppCompatActivity {
                         loaiSpModel -> {
                             if(loaiSpModel.isSuccess()){
                                 mangloaisp = loaiSpModel.getResult();
-                                mangloaisp.add(new LoaiSp("Đăng xuất","" ));
+                                mangloaisp.add(new LoaiSp("Đăng xuất","https://cdn-icons-png.flaticon.com/512/3596/3596149.png" ));
                                 loaiSpAdapter = new LoaiSpAdapter(getApplicationContext(),mangloaisp);
                                 listViewManHinhChinh.setAdapter(loaiSpAdapter);
                             }
@@ -204,9 +204,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void ActionViewFlipper() {
         List<String> mangquancao = new ArrayList<>();
-        mangquancao.add("https://intphcm.com/data/upload/banner-dep.jpg");
-        mangquancao.add("https://intphcm.com/data/upload/banner-la-gi.jpg");
-        mangquancao.add("https://intphcm.com/data/upload/mau-banner-dep.jpg");
+        mangquancao.add("https://cdn.tgdd.vn/Files/2015/04/25/635920/banner-home.jpg");
+        mangquancao.add("https://s3.cloud.cmctelecom.vn/tinhte1/2016/03/3624138_image003.png");
+        mangquancao.add("https://cdn.tgdd.vn/Files/2013/11/06/522979/TGDd-MayCu-1.jpg");
         for(int i = 0; i <mangquancao.size(); i++){
             ImageView imageView = new ImageView(getApplicationContext());
             Glide.with(getApplicationContext()).load(mangquancao.get(i)).into(imageView);

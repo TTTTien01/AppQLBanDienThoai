@@ -22,6 +22,7 @@ import com.example.appbanhang.Interface.ItemClickListener;
 import com.example.appbanhang.R;
 import com.example.appbanhang.activity.ChitietActivity;
 import com.example.appbanhang.model.SanPhamMoi;
+import com.example.appbanhang.utils.Utils;
 
 public class DienThoaiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
     Context context;
@@ -56,7 +57,14 @@ public class DienThoaiAdapter extends RecyclerView.Adapter<RecyclerView.ViewHold
             DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
             myViewHolder.giasp.setText("Giá: "+ decimalFormat.format(Double.parseDouble( sanPham.getGiasp()))+"VND");
             myViewHolder.mota.setText(sanPham.getMota());
-            Glide.with(context).load(sanPham.getHinhanh()).into(myViewHolder.hinhanh);
+            //Glide.with(context).load(sanPham.getHinhanh()).into(myViewHolder.hinhanh);
+            if(sanPham.getHinhanh().contains("http")){
+                Glide.with(context).load(sanPham.getHinhanh()).into(myViewHolder.hinhanh);
+            }else{
+                String hinhanh = Utils.BASE_URL+"images/"+sanPham.getHinhanh();
+                Glide.with(context).load(hinhanh).into(myViewHolder.hinhanh);
+
+            }
             myViewHolder.setItemClickListener(new ItemClickListener() {
                 @Override
                 public void onClick(View view, int pos, boolean isLongClick) {

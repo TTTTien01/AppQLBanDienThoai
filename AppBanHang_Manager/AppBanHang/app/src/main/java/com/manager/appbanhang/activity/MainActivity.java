@@ -142,14 +142,16 @@ public class MainActivity extends AppCompatActivity {
                     case 6:
                         Intent quanly = new Intent(getApplicationContext(), QuanLyActivity.class);
                         startActivity(quanly);
-                        finish();
                         break;
                     case 7:
                         Intent chat = new Intent(getApplicationContext(), UserChatActivity.class);
                         startActivity(chat);
-                        finish();
                         break;
                     case 8:
+                        Intent thongke = new Intent(getApplicationContext(), ThongKeActivity.class);
+                        startActivity(thongke);
+                        break;
+                    case 9:
                         //xoa key user
                         Paper.book().delete("user");
                         FirebaseAuth.getInstance().signOut();
@@ -191,6 +193,7 @@ public class MainActivity extends AppCompatActivity {
                                 mangloaisp = loaiSpModel.getResult();
                                 mangloaisp.add(new LoaiSp("Quản lý","https://media.istockphoto.com/id/1170516178/vi/vec-to/qu%E1%BA%A3n-l%C3%BD-quy-tr%C3%ACnh-ph%E1%BB%A9c-t%E1%BA%A1p-icon.jpg?s=612x612&w=0&k=20&c=SpWgbqWzDqQ2tT-4__a_Ifcfkr6BOZnEYTvhyHF3_nM=" ));
                                 mangloaisp.add(new LoaiSp("Chat","https://uxwing.com/wp-content/themes/uxwing/download/communication-chat-call/user-chat-icon.png" ));
+                                mangloaisp.add(new LoaiSp("Thống kê","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJfvEAB0WJ2S10nt2uzxbk2AKvffZrVxtTtft4bUserL67HkVS2MAjOqBNAVfepeTuXTM&usqp=CAU" ));
                                 mangloaisp.add(new LoaiSp("Đăng xuất","https://cdn-icons-png.flaticon.com/512/3596/3596149.png" ));
                                 loaiSpAdapter = new LoaiSpAdapter(getApplicationContext(),mangloaisp);
                                 listViewManHinhChinh.setAdapter(loaiSpAdapter);
@@ -202,9 +205,9 @@ public class MainActivity extends AppCompatActivity {
 
     private void ActionViewFlipper() {
         List<String> mangquancao = new ArrayList<>();
-        mangquancao.add("https://intphcm.com/data/upload/banner-dep.jpg");
-        mangquancao.add("https://intphcm.com/data/upload/banner-la-gi.jpg");
-        mangquancao.add("https://intphcm.com/data/upload/mau-banner-dep.jpg");
+        mangquancao.add("https://cdn.tgdd.vn/Files/2015/04/25/635920/banner-home.jpg");
+        mangquancao.add("https://s3.cloud.cmctelecom.vn/tinhte1/2016/03/3624138_image003.png");
+        mangquancao.add("https://cdn.tgdd.vn/Files/2013/11/06/522979/TGDd-MayCu-1.jpg");
         for(int i = 0; i <mangquancao.size(); i++){
             ImageView imageView = new ImageView(getApplicationContext());
             Glide.with(getApplicationContext()).load(mangquancao.get(i)).into(imageView);
