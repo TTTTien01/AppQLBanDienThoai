@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".activity.ThongTinActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toobar"
+        app:title="Thông Tin"
+        app:titleTextColor="#fff"
+        android:background="#27682A"
+        app:layout_constraintTop_toTopOf="parent"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+    </androidx.appcompat.widget.Toolbar>
+    <LinearLayout
+        app:layout_constraintTop_toBottomOf="@id/toobar"
+        android:id="@+id/lin1"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/item_image"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/dg"
+            android:layout_width="100dp"
+            android:layout_height="80dp"/>
+
+        <TextView
+            android:id="@+id/item_tensp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="2dp"
+            android:text="Cam kết chính hãng
+cho tất cả các mặt hàng bán tại Four-T Shop đều đi kèm cam kết bán hàng chính hãng hoàn tiền 100% nếu phát hiện hàng giả, hàng kém chất lượng."
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+    </LinearLayout>
+    <LinearLayout
+        app:layout_constraintTop_toBottomOf="@id/lin1"
+        android:id="@+id/lin2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/item_image1"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/ic_baseline_access_time_24"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+
+        <TextView
+            android:id="@+id/item_tensp1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="2dp"
+            android:text="Giờ làm việc 8:30 - 20:00"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+    </LinearLayout>
+    <LinearLayout
+        app:layout_constraintTop_toBottomOf="@id/lin2"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+        <ImageView
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:id="@+id/item_image2"
+            android:layout_marginLeft="10dp"
+            android:src="@drawable/phone_24"
+            android:layout_width="25dp"
+            android:layout_height="25dp"/>
+
+        <TextView
+            android:id="@+id/item_tensp2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="2dp"
+            android:text="Hỗ trợ trực tuyến : 0923337890"
+            android:textColor="@color/black"
+            android:textSize="15sp" />
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>

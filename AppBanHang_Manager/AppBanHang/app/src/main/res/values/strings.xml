@@ -2,5 +2,6 @@
     <string name="app_name">App Quản lý</string>
     <string name="gi_25000">Giá: 25000 đ</string>
     <string name="themvaogiohang">Thêm vào giỏ hàng</string>
+    <string name="map_api_key">AIzaSyAj07TYMehi0YRqzRzkFqLoMSuXYv6XIFk</string>
 
 </resources>

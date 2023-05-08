@@ -8,8 +8,16 @@ public class DonHang {
     String diachi;
     String sodienthoai;
     String tongtien;
+    int tinhtrang;
     List<Item> item;
 
+    public int getTinhtrang() {
+        return tinhtrang;
+    }
+
+    public void setTinhtrang(int tinhtrang) {
+        this.tinhtrang = tinhtrang;
+    }
 
     public int getId() {
         return id;

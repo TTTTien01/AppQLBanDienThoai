@@ -18,7 +18,7 @@
             <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbarmanhinhchinh"
                 app:font="@font/dancing_script"
-                app:title="Four-T"
+                app:title="Quản lý Four-T"
                 app:titleTextColor="#fff"
                 android:background="#27682A"
                 android:layout_width="match_parent"

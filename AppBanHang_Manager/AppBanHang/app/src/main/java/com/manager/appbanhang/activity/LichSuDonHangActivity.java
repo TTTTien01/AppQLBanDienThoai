@@ -48,6 +48,7 @@ public class LichSuDonHangActivity extends AppCompatActivity {
     int tinhtrang;
     AlertDialog dialog;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,7 +56,6 @@ public class LichSuDonHangActivity extends AppCompatActivity {
         initView();
         initToolbar();
         getOrder();
-
 
     }
 
@@ -92,7 +92,6 @@ public class LichSuDonHangActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toobar);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         redonhang.setLayoutManager(layoutManager);
-
     }
 
     @Override
@@ -196,6 +195,7 @@ public class LichSuDonHangActivity extends AppCompatActivity {
                         }
                 ));
     }
+
     private String tinhTrangDonHang(int status){
         String result = "";
         switch (status){
@@ -218,8 +218,6 @@ public class LichSuDonHangActivity extends AppCompatActivity {
 
         return result;
     }
-
-
 
     @Override
     protected void onStart() {

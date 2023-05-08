@@ -91,7 +91,6 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
         return result;
     }
 
-
     @Override
     public int getItemCount() {
         return listdonhang.size();
