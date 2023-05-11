@@ -6,6 +6,15 @@ public class GioHang {
     long giasp;
     String hinhsp;
     int soluong;
+    boolean isChecked;
+
+    public boolean isChecked() {
+        return isChecked;
+    }
+
+    public void setChecked(boolean checked) {
+        isChecked = checked;
+    }
 
     public int getIdsp() {
         return idsp;

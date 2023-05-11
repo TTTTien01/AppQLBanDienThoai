@@ -22,6 +22,8 @@ import com.nex3z.notificationbadge.NotificationBadge;
 
 import java.text.DecimalFormat;
 
+import io.paperdb.Paper;
+
 public class ChitietActivity extends AppCompatActivity {
     TextView tensp, giasp, mota;
     Button btnthem;
@@ -46,6 +48,7 @@ public class ChitietActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 themGioHang();
+                Paper.book().write("giohang", Utils.manggiohang);
             }
         });
     }
@@ -57,7 +60,6 @@ public class ChitietActivity extends AppCompatActivity {
             for (int i =0; i<Utils.manggiohang.size(); i++){
                 if(Utils.manggiohang.get(i).getIdsp() == sanPhamMoi.getId()){
                     Utils.manggiohang.get(i).setSoluong(soluong + Utils.manggiohang.get(i).getSoluong());
-
                     flag = true;
                 }
             }

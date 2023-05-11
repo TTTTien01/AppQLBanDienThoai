@@ -7,7 +7,7 @@
     tools:context=".activity.DienThoaiActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toobar"
-        app:title="Điện thoại"
+        app:title="Mua sắm ngay"
         app:titleTextColor="#fff"
         android:background="#27682A"
         app:layout_constraintTop_toTopOf="parent"

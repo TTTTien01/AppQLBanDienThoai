@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.appbanhang.R;
 import com.example.appbanhang.model.CreateOrder;
+import com.example.appbanhang.model.GioHang;
 import com.example.appbanhang.model.NotiSendData;
 import com.example.appbanhang.retrofit.ApiBanHang;
 import com.example.appbanhang.retrofit.ApiPushNofication;
@@ -32,6 +33,7 @@ import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import io.paperdb.Paper;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
@@ -112,9 +114,16 @@ public class ThanhToanActivity extends AppCompatActivity {
                                     messageModel -> {
                                         //gui thong bao
                                         pushNotiToUser();
-
                                         Toast.makeText(getApplicationContext(),"Đặt hàng thành công!!!",Toast.LENGTH_SHORT).show();
+                                        //xao mang gio hang
+                                        for(int i=0; i<Utils.mangmuahang.size(); i++){
+                                            GioHang gioHang = Utils.mangmuahang.get(i);
+                                            if(Utils.manggiohang.contains(gioHang)){
+                                                Utils.manggiohang.remove(gioHang);
+                                            }
+                                        }
                                         Utils.mangmuahang.clear();
+                                        Paper.book().write("giohang", Utils.manggiohang);
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivity(intent);
                                         finish();
@@ -147,7 +156,14 @@ public class ThanhToanActivity extends AppCompatActivity {
                                         //gui thong bao
                                         pushNotiToUser();
                                         //Toast.makeText(getApplicationContext(),"Đặt hàng thành công!!!",Toast.LENGTH_SHORT).show();
+                                        for(int i=0; i<Utils.mangmuahang.size(); i++){
+                                            GioHang gioHang = Utils.mangmuahang.get(i);
+                                            if(Utils.manggiohang.contains(gioHang)){
+                                                Utils.manggiohang.remove(gioHang);
+                                            }
+                                        }
                                         Utils.mangmuahang.clear();
+                                        Paper.book().write("giohang", Utils.manggiohang);
                                         iddonhang = Integer.parseInt(messageModel.getIddonhang());
                                         requestZalo();
                                     },

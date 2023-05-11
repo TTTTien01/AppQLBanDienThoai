@@ -48,7 +48,6 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.MyViewHo
         GioHang gioHang = gioHangList.get(position);
         holder.item_giohang_tensp.setText(gioHang.getTensp());
         holder.item_giohang_soluong.setText(gioHang.getSoluong() +" ");
-       //Glide.with(context).load(gioHang.getHinhsp()).into(holder.item_giohang_image);
         if(gioHang.getHinhsp().contains("http")){
             Glide.with(context).load(gioHang.getHinhsp()).into(holder.item_giohang_image);
         }else{
@@ -64,9 +63,15 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.MyViewHo
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 if(isChecked){
-                    Utils.mangmuahang.add(gioHang);
+                    Utils.manggiohang.get(holder.getAdapterPosition()).setChecked(true);
+                    if(!Utils.mangmuahang.contains(gioHang)){
+                        Utils.mangmuahang.add(gioHang);
+
+                    }
+
                     EventBus.getDefault().postSticky(new TinhTongEvent());
                 }else {
+                    Utils.manggiohang.get(holder.getAdapterPosition()).setChecked(false);
                     for(int i =0; i<Utils.mangmuahang.size(); i++){
                         if(Utils.mangmuahang.get(i).getIdsp() == gioHang.getIdsp()){
                             Utils.mangmuahang.remove(i);
@@ -76,8 +81,7 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.MyViewHo
                 }
             }
         });
-
-
+        holder.checkBox.setChecked(gioHang.isChecked());
 
         holder.setListener(new ImageClickListenner() {
             @Override
@@ -100,6 +104,7 @@ public class GioHangAdapter extends RecyclerView.Adapter<GioHangAdapter.MyViewHo
                       builder.setPositiveButton("Đồng ý", new DialogInterface.OnClickListener() {
                           @Override
                           public void onClick(DialogInterface dialogInterface, int i) {
+                              Utils.mangmuahang.remove(gioHang);
                               Utils.manggiohang.remove(pos);
                               notifyDataSetChanged();
                               EventBus.getDefault().postSticky(new TinhTongEvent());
