@@ -67,14 +67,6 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
-                <TextView
-                    android:textSize="20sp"
-                    android:textStyle="bold"
-                    android:textColor="@android:color/holo_red_light"
-                    android:layout_marginLeft="10dp"
-                    android:text=""
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"/>
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/recycleview"
                     android:layout_marginLeft="5dp"

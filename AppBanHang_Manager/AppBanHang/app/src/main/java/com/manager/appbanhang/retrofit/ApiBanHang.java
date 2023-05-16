@@ -66,6 +66,7 @@ public interface ApiBanHang {
             @Field("sodienthoai") String sodienthoai,
             @Field("soluong") int soluong,
             @Field("tongtien") String tongtien,
+          //  @Field("tenKH") String tenKH,
             @Field("chitiet") String chitiet
     );
 

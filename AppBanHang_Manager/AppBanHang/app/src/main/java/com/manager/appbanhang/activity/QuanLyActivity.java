@@ -11,7 +11,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.manager.appbanhang.R;
@@ -86,7 +86,8 @@ public class QuanLyActivity extends AppCompatActivity {
         toolbar = findViewById(R.id.toobar);
         themsp = findViewById(R.id.img_themsp);
         recyclerView = findViewById(R.id.recycleview_ql);
-        RecyclerView.LayoutManager layoutManager= new LinearLayoutManager(this);
+       // RecyclerView.LayoutManager layoutManager= new LinearLayoutManager(this);
+        RecyclerView.LayoutManager layoutManager = new GridLayoutManager(this,2 );
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(layoutManager);
     }

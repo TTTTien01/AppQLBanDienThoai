@@ -139,6 +139,10 @@ public class MainActivity extends AppCompatActivity {
                         Intent lienhe = new Intent(getApplicationContext(), MapAPIActivity.class);
                         startActivity(lienhe);
                         break;
+                    case 4:
+                        Intent thongtin = new Intent(getApplicationContext(), ThongTinActivity.class);
+                        startActivity(thongtin);
+                        break;
                     case 5:
                         Intent donhang = new Intent(getApplicationContext(), LichSuDonHangActivity.class);
                         startActivity(donhang);
@@ -195,10 +199,10 @@ public class MainActivity extends AppCompatActivity {
                         loaiSpModel -> {
                             if(loaiSpModel.isSuccess()){
                                 mangloaisp = loaiSpModel.getResult();
-                                mangloaisp.add(new LoaiSp("Quản lý","https://media.istockphoto.com/id/1170516178/vi/vec-to/qu%E1%BA%A3n-l%C3%BD-quy-tr%C3%ACnh-ph%E1%BB%A9c-t%E1%BA%A1p-icon.jpg?s=612x612&w=0&k=20&c=SpWgbqWzDqQ2tT-4__a_Ifcfkr6BOZnEYTvhyHF3_nM=" ));
-                                mangloaisp.add(new LoaiSp("Chat","https://uxwing.com/wp-content/themes/uxwing/download/communication-chat-call/user-chat-icon.png" ));
-                                mangloaisp.add(new LoaiSp("Thống kê","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRJfvEAB0WJ2S10nt2uzxbk2AKvffZrVxtTtft4bUserL67HkVS2MAjOqBNAVfepeTuXTM&usqp=CAU" ));
-                                mangloaisp.add(new LoaiSp("Đăng xuất","https://cdn-icons-png.flaticon.com/512/3596/3596149.png" ));
+                                mangloaisp.add(new LoaiSp("Quản lý","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRqAQbsUDWpn6aI8jTNYbF5isesaj2xkk1xIw&usqp=CAU" ));
+                                mangloaisp.add(new LoaiSp("Chat","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTnn0GdH1JbUW_ntQVOJeu7mPwxlKchKUqSLg&usqp=CAU" ));
+                                mangloaisp.add(new LoaiSp("Thống kê","https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQI7yBNQrPmvsZDMjXeKKs1OJy18-yOngmK2WdmUehJiD6_eTQKMGKKfPYwEuU_v2IvFHI&usqp=CAU" ));
+                                mangloaisp.add(new LoaiSp("Đăng xuất","https://cdn-icons-png.flaticon.com/512/1716/1716282.png" ));
                                 loaiSpAdapter = new LoaiSpAdapter(getApplicationContext(),mangloaisp);
                                 listViewManHinhChinh.setAdapter(loaiSpAdapter);
                             }

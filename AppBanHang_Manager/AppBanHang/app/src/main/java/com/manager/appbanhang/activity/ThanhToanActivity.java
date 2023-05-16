@@ -29,7 +29,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class ThanhToanActivity extends AppCompatActivity {
     Toolbar toolbar;
-    TextView txttongtien, txtsodt, txtemail;
+    TextView txttongtien, txtsodt, txtemail,txttenKH;
     EditText edtdiachi;
     AppCompatButton btndathang;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
@@ -64,6 +64,7 @@ public class ThanhToanActivity extends AppCompatActivity {
         });
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         tongtien = getIntent().getLongExtra("tongtien",0);
+        txttenKH.setText(Utils.user_current.getUsername());
         txttongtien.setText(decimalFormat.format(tongtien));
         txtemail.setText(Utils.user_current.getEmail());
         txtsodt.setText(Utils.user_current.getPhonenumber());
@@ -79,6 +80,7 @@ public class ThanhToanActivity extends AppCompatActivity {
                     //post data
                     String str_email = Utils.user_current.getEmail();
                     String str_sdt = Utils.user_current.getPhonenumber();
+                    String str_tenKH = Utils.user_current.getUsername();
                     int iduser = Utils.user_current.getId();
 
                     Log.d("test", new Gson().toJson(Utils.mangmuahang)); //Kiểm tra
@@ -114,6 +116,7 @@ public class ThanhToanActivity extends AppCompatActivity {
         apiBanHang = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanHang.class);
         toolbar = findViewById(R.id.toobar);
         txttongtien = findViewById(R.id.txttongtien);
+        txttenKH = findViewById(R.id.txttenKH);
         txtemail = findViewById(R.id.txtemail);
         txtsodt = findViewById(R.id.txtsodienthoai);
         edtdiachi = findViewById(R.id.editdiachi);

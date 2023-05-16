@@ -63,6 +63,7 @@ public class ChiTietAdapter extends RecyclerView.Adapter<ChiTietAdapter.MyViewHo
             imagechitiet  = itemView.findViewById(R.id.item_imgchitiet);
             txtten = itemView.findViewById(R.id.item_tenspchitiet);
             txtsoluong = itemView.findViewById(R.id.item_soluongspchitiet);
+
         }
     }
 }

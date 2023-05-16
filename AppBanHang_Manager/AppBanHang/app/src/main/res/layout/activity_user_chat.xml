@@ -8,7 +8,7 @@
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toobar"
         app:layout_constraintTop_toTopOf="parent"
-        app:title="Chat with user"
+        app:title="Liên hệ khách hàng "
         app:titleTextColor="#fff"
         android:background="#27682A"
         android:layout_width="match_parent"

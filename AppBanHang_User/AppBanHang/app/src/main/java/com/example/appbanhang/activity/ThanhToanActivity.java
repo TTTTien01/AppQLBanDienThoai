@@ -45,7 +45,7 @@ import vn.zalopay.sdk.listeners.PayOrderListener;
 
 public class ThanhToanActivity extends AppCompatActivity {
     Toolbar toolbar;
-    TextView txttongtien, txtsodt, txtemail;
+    TextView txttongtien, txtsodt, txtemail,txttenKH;
     EditText edtdiachi;
     ImageView btnzalopay;
     AppCompatButton btndathang;//btnzalopay
@@ -90,6 +90,7 @@ public class ThanhToanActivity extends AppCompatActivity {
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         tongtien = getIntent().getLongExtra("tongtien",0);
         txttongtien.setText(decimalFormat.format(tongtien));
+        txttenKH.setText(Utils.user_current.getUsername());
         txtemail.setText(Utils.user_current.getEmail());
         txtsodt.setText(Utils.user_current.getPhonenumber());
 
@@ -261,11 +262,11 @@ public class ThanhToanActivity extends AppCompatActivity {
         apiBanHang = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanHang.class);
         toolbar = findViewById(R.id.toobar);
         txttongtien = findViewById(R.id.txttongtien);
+        txttenKH = findViewById(R.id.txttenKH);
         txtemail = findViewById(R.id.txtemail);
         txtsodt = findViewById(R.id.txtsodienthoai);
         edtdiachi = findViewById(R.id.editdiachi);
         btndathang = findViewById(R.id.btndathang);
-       // btnzalopay = findViewById(R.id.btnzalopay);
         btnzalopay = findViewById(R.id.imgzalopay);
     }
 

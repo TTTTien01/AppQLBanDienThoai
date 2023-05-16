@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.appbanhang.R;
 import com.example.appbanhang.model.DonHang;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHolder> {
@@ -38,6 +39,10 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
         DonHang donHang = listdonhang.get(position);
         //đưa id kiểu int về kiểu chuổi
         holder.txtdonhang.setText("Đơn hàng: " + donHang.getId());
+        holder.lienhe.setText("Số điện thoại: "+ donHang.getSodienthoai());
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+        holder.tongtien.setText("Tổng tiền: "+ decimalFormat.format(Double.parseDouble(donHang.getTongtien()))+" VND");
+        holder.diachi.setText("Địa chỉ: "+donHang.getDiachi());
         holder.tinhtrang.setText(tinhTrangDonHang(donHang.getTinhtrang()));
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 holder.reChitiet.getContext(),
@@ -82,7 +87,7 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
     }
 
     public class MyViewHolder extends  RecyclerView.ViewHolder{
-        TextView txtdonhang,tinhtrang;
+        TextView txtdonhang,tinhtrang, diachi, lienhe, tongtien;
         RecyclerView reChitiet;
 
         public  MyViewHolder(@NonNull View itemView){
@@ -90,6 +95,9 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
             txtdonhang = itemView.findViewById(R.id.iddonhang);
             reChitiet = itemView.findViewById(R.id.recyclerview_chitiet);
             tinhtrang = itemView.findViewById(R.id.tinhtrang);
+            diachi = itemView.findViewById(R.id.diachi_donhang);
+            lienhe = itemView.findViewById(R.id.lienhe_donhang);
+            tongtien = itemView.findViewById(R.id.tongtien_donhang);
         }
     }
 }

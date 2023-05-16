@@ -6,11 +6,20 @@ public class DonHang {
     int id;
     //int idsp;
     int iduser;
+    String tenKH;
     String diachi;
     String sodienthoai;
     String tongtien;
     int tinhtrang;
     List<Item> item;
+
+    public String getTenKH() {
+        return tenKH;
+    }
+
+    public void setTenKH(String tenKH) {
+        this.tenKH = tenKH;
+    }
 
     public int getTinhtrang() {
         return tinhtrang;

@@ -116,6 +116,11 @@ public class MainActivity extends AppCompatActivity {
                         startActivity(lienhe);
                         break;
 
+                    case 4:
+                        Intent thongtin = new Intent(getApplicationContext(), ThongTinActivity.class);
+                        startActivity(thongtin);
+                        break;
+
                     case 5:
                         Intent donhang = new Intent(getApplicationContext(), LichSuDonHangActivity.class);
                         startActivity(donhang);
@@ -198,7 +203,7 @@ public class MainActivity extends AppCompatActivity {
                         loaiSpModel -> {
                             if(loaiSpModel.isSuccess()){
                                 mangloaisp = loaiSpModel.getResult();
-                                mangloaisp.add(new LoaiSp("Đăng xuất","https://cdn-icons-png.flaticon.com/512/3596/3596149.png" ));
+                                mangloaisp.add(new LoaiSp("Đăng xuất","https://cdn-icons-png.flaticon.com/512/1716/1716282.png" ));
                                 loaiSpAdapter = new LoaiSpAdapter(getApplicationContext(),mangloaisp);
                                 listViewManHinhChinh.setAdapter(loaiSpAdapter);
                             }
