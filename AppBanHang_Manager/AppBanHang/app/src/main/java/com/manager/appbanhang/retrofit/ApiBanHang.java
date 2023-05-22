@@ -1,10 +1,12 @@
 package com.manager.appbanhang.retrofit;
 
+import com.manager.appbanhang.model.ChiTietDonHangModel;
 import com.manager.appbanhang.model.DonHangModel;
 import com.manager.appbanhang.model.LoaiSpModel;
 import com.manager.appbanhang.model.MessageModel;
 import com.manager.appbanhang.model.SanPhamMoiModel;
 import com.manager.appbanhang.model.ThongKeModel;
+import com.manager.appbanhang.model.ThongtinchitietKH;
 import com.manager.appbanhang.model.UserModel;
 
 import io.reactivex.rxjava3.core.Observable;
@@ -26,6 +28,15 @@ public interface ApiBanHang {
 
     @GET("thongke.php")
     Observable<ThongKeModel> getthongke();
+
+    @GET("thongkethang.php")
+    Observable<ThongKeModel> getthongkeThang();
+
+    @GET("thongkebanchay.php")
+    Observable<ChiTietDonHangModel> getthongkeBanChay();
+
+    @GET("thongtinchitietKH.php")
+    Observable<ThongtinchitietKH> getthongtinchitietKH();
 
     @POST("chitiet.php")
     @FormUrlEncoded
