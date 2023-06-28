@@ -11,12 +11,9 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -35,12 +32,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import io.paperdb.Paper;
-import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
-import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class ChitietActivity extends AppCompatActivity {
-    TextView tensp, giasp, mota;
+    TextView tensp, giasp,soluongkho, mota;
     Button btnthem;
     ImageView imghinhanh;
     Spinner spinner;
@@ -58,7 +53,7 @@ public class ChitietActivity extends AppCompatActivity {
     ListView listViewManHinhChinh;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     ApiBanHang apiBanHang;
-    int page =1;
+    int page = 1;
     int loai;
 
 
@@ -67,88 +62,13 @@ public class ChitietActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_chitiet);
         apiBanHang = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanHang.class);
-        loai = getIntent().getIntExtra("loai",1);
+        loai = getIntent().getIntExtra("loai", 1);
         initView();
         ActionTooBar();
         initData();
         initControl();
-
-        getData(page);
-        addEventLoad();
-    }
-    private void addEventLoad() {
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if(isLoading == false){
-                    if(linearLayoutManager.findLastCompletelyVisibleItemPosition() == sanPhamMoiList.size()-1){
-                        isLoading = true;
-                        loadMore();
-                    }
-                }
-            }
-        });
     }
 
-    private void loadMore() {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                //add null
-                sanPhamMoiList.add(null);
-                adapterDt.notifyItemInserted(sanPhamMoiList.size()-1);
-            }
-        });
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //remover null
-                sanPhamMoiList.remove(sanPhamMoiList.size()-1);
-                adapterDt.notifyItemRemoved(sanPhamMoiList.size());
-                page = page+1;
-                getData(page);
-                adapterDt.notifyDataSetChanged();
-                isLoading = false;
-            }
-        },2000);
-    }
-
-    private void getData(int page) {
-        compositeDisposable.add(apiBanHang.getSanPham(page,loai)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        sanPhamMoiModel -> {
-                            if (sanPhamMoiModel.isSuccess()){
-                                if(adapterDt == null){
-                                    sanPhamMoiList = sanPhamMoiModel.getResult();
-                                    adapterDt = new DienThoaiAdapter(getApplicationContext(), sanPhamMoiList);
-                                    recyclerView.setAdapter(adapterDt);
-                                }else {
-                                    int vitri = sanPhamMoiList.size()-1;
-                                    int soluongadd = sanPhamMoiModel.getResult().size();
-                                    for(int i = 0; i<soluongadd; i++){
-                                        sanPhamMoiList.add(sanPhamMoiModel.getResult().get(i));
-                                    }
-                                    adapterDt.notifyItemRangeInserted(vitri, soluongadd);
-                                }
-                            }else{
-                                Toast.makeText(getApplicationContext(), "Hết dữ liệu rồi ",Toast.LENGTH_LONG).show();
-                                isLoading = true;
-
-                            }
-                        },
-                        throwable -> {
-                            Toast.makeText(getApplicationContext(), "Không kết nối sever "+ throwable.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                ));
-    }
 
     private void initControl() {
         btnthem.setOnClickListener(new View.OnClickListener() {
@@ -161,19 +81,19 @@ public class ChitietActivity extends AppCompatActivity {
     }
 
     private void themGioHang() {
-        if(Utils.manggiohang.size() >0){
+        if (Utils.manggiohang.size() > 0) {
             boolean flag = false;
             int soluong = Integer.parseInt(spinner.getSelectedItem().toString());
-            for (int i =0; i<Utils.manggiohang.size(); i++){
-                if(Utils.manggiohang.get(i).getIdsp() == sanPhamMoi.getId()){
+            for (int i = 0; i < Utils.manggiohang.size(); i++) {
+                if (Utils.manggiohang.get(i).getIdsp() == sanPhamMoi.getId()) {
                     Utils.manggiohang.get(i).setSoluong(soluong + Utils.manggiohang.get(i).getSoluong());
                     long gia = Long.parseLong(sanPhamMoi.getGiasp()) * Utils.manggiohang.get(i).getSoluong();
                     Utils.manggiohang.get(i).setGiasp(gia);
                     flag = true;
                 }
             }
-            if(flag == false){
-               // int soluong = Integer.parseInt(spinner.getSelectedItem().toString());
+            if (flag == false) {
+                // int soluong = Integer.parseInt(spinner.getSelectedItem().toString());
                 long gia = Long.parseLong(sanPhamMoi.getGiasp()) * soluong;
                 GioHang gioHang = new GioHang();
                 gioHang.setGiasp(gia);
@@ -181,11 +101,12 @@ public class ChitietActivity extends AppCompatActivity {
                 gioHang.setIdsp(sanPhamMoi.getId());
                 gioHang.setTensp(sanPhamMoi.getTensanpham());
                 gioHang.setHinhsp(sanPhamMoi.getHinhanh());
+                gioHang.setSoluongkho(sanPhamMoi.getSoluongkho());
                 Utils.manggiohang.add(gioHang);
             }
 
 
-        }else {
+        } else {
             int soluong = Integer.parseInt(spinner.getSelectedItem().toString());
             long gia = Long.parseLong(sanPhamMoi.getGiasp()) * soluong;
             GioHang gioHang = new GioHang();
@@ -194,12 +115,13 @@ public class ChitietActivity extends AppCompatActivity {
             gioHang.setIdsp(sanPhamMoi.getId());
             gioHang.setTensp(sanPhamMoi.getTensanpham());
             gioHang.setHinhsp(sanPhamMoi.getHinhanh());
+            gioHang.setSoluongkho(sanPhamMoi.getSoluongkho());
             Utils.manggiohang.add(gioHang);
 
         }
         int totalItem = 0;
-        for(int i=0; i<Utils.manggiohang.size(); i++){
-            totalItem = totalItem+ Utils.manggiohang.get(i).getSoluong();
+        for (int i = 0; i < Utils.manggiohang.size(); i++) {
+            totalItem = totalItem + Utils.manggiohang.get(i).getSoluong();
         }
         badge.setText(String.valueOf(totalItem));
     }
@@ -208,32 +130,34 @@ public class ChitietActivity extends AppCompatActivity {
         sanPhamMoi = (SanPhamMoi) getIntent().getSerializableExtra("chitiet");
         tensp.setText(sanPhamMoi.getTensanpham());
         mota.setText(sanPhamMoi.getMota());
-        if(sanPhamMoi.getHinhanh().contains("http")){
+        soluongkho.setText("Số lượng kho: " +sanPhamMoi.getSoluongkho() +" sản phẩm");
+        if (sanPhamMoi.getHinhanh().contains("http")) {
             Glide.with(getApplicationContext()).load(sanPhamMoi.getHinhanh()).into(imghinhanh);
-        }else{
-            Glide.with(getApplicationContext()).load(Utils.BASE_URL+"images/"+sanPhamMoi.getHinhanh()).into(imghinhanh);
+        } else {
+            Glide.with(getApplicationContext()).load(Utils.BASE_URL + "images/" + sanPhamMoi.getHinhanh()).into(imghinhanh);
         }
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
-        giasp.setText("Giá: "+ decimalFormat.format(Double.parseDouble(sanPhamMoi.getGiasp()))+"VND");
-        Integer[] so = new Integer[]{1,2,3,4,5,6,7,8,9,10};
-        ArrayAdapter<Integer> adapterspin = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item,so);
+        giasp.setText("Giá: " + decimalFormat.format(Double.parseDouble(sanPhamMoi.getGiasp())) + "VND");
+        Integer[] so = new Integer[]{1, 2, 3, 4, 5, 6, 7, 8, 9, 10};
+        ArrayAdapter<Integer> adapterspin = new ArrayAdapter<>(this, androidx.appcompat.R.layout.support_simple_spinner_dropdown_item, so);
         spinner.setAdapter(adapterspin);
     }
 
-    private void initView(){
+    private void initView() {
         tensp = findViewById(R.id.txttensp);
         giasp = findViewById(R.id.txtgiasp);
+        soluongkho = findViewById(R.id.txtsoluongkho);
         mota = findViewById(R.id.txtmotachitiet);
         btnthem = findViewById(R.id.btnthemvaogiohang);
         spinner = findViewById(R.id.spinner);
         imghinhanh = findViewById(R.id.imgchitiet);
         toolbar = findViewById(R.id.toobar);
 
-        recyclerView = findViewById(R.id.recyclerview_dt);
+        //recyclerView = findViewById(R.id.recyclerview_dt);
         //linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
-        linearLayoutManager = new GridLayoutManager(this,2 );
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setHasFixedSize(true);
+        //linearLayoutManager = new GridLayoutManager(this,2 );
+        //recyclerView.setLayoutManager(linearLayoutManager);
+        //recyclerView.setHasFixedSize(true);
         sanPhamMoiList = new ArrayList<>();
 
         badge = findViewById(R.id.menu_sl);
@@ -246,10 +170,10 @@ public class ChitietActivity extends AppCompatActivity {
             }
         });
 
-        if(Utils.manggiohang !=null){
+        if (Utils.manggiohang != null) {
             int totalItem = 0;
-            for(int i=0; i<Utils.manggiohang.size(); i++){
-                totalItem = totalItem+ Utils.manggiohang.get(i).getSoluong();
+            for (int i = 0; i < Utils.manggiohang.size(); i++) {
+                totalItem = totalItem + Utils.manggiohang.get(i).getSoluong();
             }
 
             badge.setText(String.valueOf(totalItem));
@@ -270,16 +194,17 @@ public class ChitietActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
-        if(Utils.manggiohang !=null){
+        if (Utils.manggiohang != null) {
             int totalItem = 0;
-            for(int i=0; i<Utils.manggiohang.size(); i++){
-                totalItem = totalItem+ Utils.manggiohang.get(i).getSoluong();
+            for (int i = 0; i < Utils.manggiohang.size(); i++) {
+                totalItem = totalItem + Utils.manggiohang.get(i).getSoluong();
             }
             badge.setText(String.valueOf(totalItem));
         }
     }
+
     @Override
-    protected void  onDestroy(){
+    protected void onDestroy() {
         compositeDisposable.clear();
         super.onDestroy();
     }

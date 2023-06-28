@@ -71,6 +71,7 @@ public class ThemSanPhamActivity extends AppCompatActivity {
             //show data
             binding.mota.setText(sanPhamSua.getMota());
             binding.giasp.setText(sanPhamSua.getGiasp()+"");
+            binding.soluongkho.setText(sanPhamSua.getSoluongkho());
             binding.tensp.setText(sanPhamSua.getTensanpham());
             binding.hinhanh.setText(sanPhamSua.getHinhanh());
             binding.spinnerLoai.setSelection(sanPhamSua.getLoai());
@@ -134,12 +135,13 @@ public class ThemSanPhamActivity extends AppCompatActivity {
     private void suaSanPham() {
         String str_tensp = binding.tensp.getText().toString().trim();
         String str_giasp = binding.giasp.getText().toString().trim();
+        String str_soluongkho = binding.soluongkho.getText().toString().trim();
         String str_hinhanh = binding.hinhanh.getText().toString().trim();
         String str_mota = binding.mota.getText().toString().trim();
-        if(TextUtils.isEmpty(str_tensp) || TextUtils.isEmpty(str_giasp) || TextUtils.isEmpty(str_hinhanh) || TextUtils.isEmpty(str_mota) || loai == 0 ){
+        if(TextUtils.isEmpty(str_tensp) || TextUtils.isEmpty(str_giasp) || TextUtils.isEmpty(str_soluongkho) ||TextUtils.isEmpty(str_hinhanh) || TextUtils.isEmpty(str_mota) || loai == 0 ){
             Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
         }else {
-            compositeDisposable.add(apiBanHang.suaSanPham(str_tensp,str_giasp,str_hinhanh,str_mota,loai,sanPhamSua.getId())
+            compositeDisposable.add(apiBanHang.suaSanPham(str_tensp,str_giasp,str_soluongkho,str_hinhanh,str_mota,loai,sanPhamSua.getId())
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
@@ -162,12 +164,13 @@ public class ThemSanPhamActivity extends AppCompatActivity {
     private void themsanpham() {
         String str_tensp = binding.tensp.getText().toString().trim();
         String str_giasp = binding.giasp.getText().toString().trim();
+        String str_soluongkho = binding.soluongkho.getText().toString().trim();
         String str_mota = binding.mota.getText().toString().trim();
         String str_hinhanh = binding.hinhanh.getText().toString().trim();
-        if(TextUtils.isEmpty(str_tensp) || TextUtils.isEmpty(str_giasp) || TextUtils.isEmpty(str_hinhanh) || TextUtils.isEmpty(str_mota) || loai == 0 ){
+        if(TextUtils.isEmpty(str_tensp) || TextUtils.isEmpty(str_giasp) || TextUtils.isEmpty(str_soluongkho) ||TextUtils.isEmpty(str_hinhanh) || TextUtils.isEmpty(str_mota) || loai == 0 ){
             Toast.makeText(this, "Vui lòng nhập đầy đủ thông tin", Toast.LENGTH_SHORT).show();
         }else {
-            compositeDisposable.add(apiBanHang.themSp(str_tensp,str_giasp,str_hinhanh,str_mota,loai)
+            compositeDisposable.add(apiBanHang.themSp(str_tensp,str_giasp,str_soluongkho,str_hinhanh,str_mota,loai)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(

@@ -72,17 +72,24 @@ public class GioHangActivity extends AppCompatActivity {
         }else {
             adapter = new GioHangAdapter(getApplicationContext(), Utils.manggiohang);
             recyclerView.setAdapter(adapter);
+            btnmuahang.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(getApplicationContext(), ThanhToanActivity.class);
+                    intent.putExtra("tongtien",tongtiensp);
+                    startActivity(intent);
+                }
+            });
         }
         //nút mua hàng
-        btnmuahang.setOnClickListener(new View.OnClickListener() {
+        /*btnmuahang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(getApplicationContext(), ThanhToanActivity.class);
                 intent.putExtra("tongtien",tongtiensp);
-                //Utils.manggiohang.clear();
                 startActivity(intent);
             }
-        });
+        });*/
 
     }
 

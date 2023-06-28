@@ -6,7 +6,16 @@ public class GioHang {
     long giasp;
     String hinhsp;
     int soluong;
+    String soluongkho;
     boolean isChecked;
+
+    public String getSoluongkho() {
+        return soluongkho;
+    }
+
+    public void setSoluongkho(String soluongkho) {
+        this.soluongkho = soluongkho;
+    }
 
     public boolean isChecked() {
         return isChecked;

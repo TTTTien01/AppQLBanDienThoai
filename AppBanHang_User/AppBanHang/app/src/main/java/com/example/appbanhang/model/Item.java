@@ -4,7 +4,16 @@ public class Item {
     int idsp;
     String tensanpham;
     int soluong;
+    String giasp;
     String hinhanh;
+
+    public String getGiasp() {
+        return giasp;
+    }
+
+    public void setGiasp(String giasp) {
+        this.giasp = giasp;
+    }
 
     public int getSoluong() {
         return soluong;

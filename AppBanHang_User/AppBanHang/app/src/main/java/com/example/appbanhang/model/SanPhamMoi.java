@@ -8,7 +8,16 @@ public class SanPhamMoi implements Serializable {
     String giasp;
     String hinhanh;
     String mota;
+    String soluongkho;
     int loai;
+
+    public String getSoluongkho() {
+        return soluongkho;
+    }
+
+    public void setSoluongkho(String soluongkho) {
+        this.soluongkho = soluongkho;
+    }
 
     public int getId() {
         return id;

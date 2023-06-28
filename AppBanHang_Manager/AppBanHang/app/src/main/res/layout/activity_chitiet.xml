@@ -8,7 +8,7 @@
     tools:context="com.manager.appbanhang.activity.ChitietActivity">
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toobar"
-        app:title="Chi tiết"
+        app:title="Thông tin sản phẩm"
         app:titleTextColor="#fff"
         android:background="#27682A"
         app:layout_constraintTop_toTopOf="parent"
@@ -37,14 +37,15 @@
         android:id="@+id/layout1"
         android:layout_marginTop="5dp"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="250dp"
         android:orientation="horizontal"
         app:layout_constraintTop_toBottomOf="@+id/toobar">
         <ImageView
             android:id="@+id/imgchitiet"
             android:layout_width="150dp"
             android:layout_height="200dp"
-            android:src="@drawable/icon_new"/>
+            android:src="@drawable/icon_new"
+            android:layout_marginLeft="7dp"/>
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -55,6 +56,7 @@
                 android:textSize="20dp"
                 android:textStyle="bold"
                 android:gravity="center"
+                android:textColor="#0D6811"
                 android:text="Tên sản phẩm"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
@@ -66,6 +68,15 @@
                 android:textSize="15dp"
                 android:textStyle="bold"
                 android:text="@string/gi_25000"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/txtsoluongkho"
+                android:layout_marginLeft="10dp"
+                android:textColor="#974646"
+                android:textSize="15dp"
+                android:textStyle="bold"
+                android:text="so luong kho"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
             <Spinner
@@ -80,7 +91,7 @@
             <Button
                 android:id="@+id/btnthemvaogiohang"
                 android:layout_marginTop="5dp"
-                android:backgroundTint="#000000"
+                android:backgroundTint="#750707"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
                 android:textColor="@color/white"
@@ -107,16 +118,17 @@
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="7dp"
-            android:background="#4F9A52"
+            android:background="#27682A"
             android:padding="10dp"
-            android:text="Mô tả chi tiết sản phẩm"
-            android:textColor="@color/black"
-            android:textSize="15sp"
-            android:textStyle="bold" />
+            android:text="Thông tin chi tiết sản phẩm"
+            android:gravity="center"
+            android:textColor="#FAF9F9"
+            android:textSize="20sp"
+            android:textStyle="bold"/>
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="195dp"
+            android:layout_height="match_parent"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="5dp"
             android:layout_marginRight="10dp"
@@ -133,27 +145,5 @@
                 android:textSize="15dp" />
         </ScrollView>
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginTop="5dp"
-            android:layout_marginRight="7dp"
-            android:background="#F8EEEE"
-            android:padding="10dp"
-            android:text="Một số sản phẩm khác "
-            android:textColor="#F80000"
-            android:textSize="15sp"
-            android:textStyle="bold"
-            android:gravity="center"/>
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerview_dt"
-            android:layout_marginLeft="5dp"
-            android:layout_marginTop="10dp"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-        </androidx.recyclerview.widget.RecyclerView>
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

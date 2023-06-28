@@ -1,15 +1,43 @@
 package com.example.appbanhang.model;
 
+import java.util.Date;
 import java.util.List;
 
 public class DonHang {
     int id;
     int idsp;
+    String username;
     String diachi;
+    String email;
     String sodienthoai;
     String tongtien;
     int tinhtrang;
+    Date ngaydathang;
     List<Item> item;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public Date getNgaydathang() {
+        return ngaydathang;
+    }
+
+    public void setNgaydathang(Date ngaydathang) {
+        this.ngaydathang = ngaydathang;
+    }
 
     public int getTinhtrang() {
         return tinhtrang;

@@ -18,7 +18,7 @@
         android:layout_marginTop="10dp"
         app:layout_constraintTop_toBottomOf="@id/toobar"
         android:id="@+id/lin1"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
@@ -28,8 +28,8 @@
             android:id="@+id/item_image"
             android:layout_marginLeft="10dp"
             android:src="@drawable/dg"
-            android:layout_width="100dp"
-            android:layout_height="80dp"/>
+            android:layout_width="400dp"
+            android:layout_height="180dp"/>
 
         <TextView
 
@@ -39,10 +39,10 @@
             android:layout_gravity="center"
             android:layout_marginLeft="10dp"
             android:layout_marginRight="2dp"
-            android:text="Cam kết chính hãng
+            android:text="      Cam kết chính hãng
 cho tất cả các mặt hàng bán tại Four-T Shop đều đi kèm cam kết bán hàng chính hãng hoàn tiền 100% nếu phát hiện hàng giả, hàng kém chất lượng."
             android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textSize="20sp" />
     </LinearLayout>
     <LinearLayout
         app:layout_constraintTop_toBottomOf="@id/lin1"
@@ -68,8 +68,8 @@ cho tất cả các mặt hàng bán tại Four-T Shop đều đi kèm cam kết
             android:layout_marginLeft="10dp"
             android:layout_marginRight="2dp"
             android:text="Giờ làm việc 8:30 - 20:00"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textColor="#B10A0A"
+            android:textSize="20sp" />
     </LinearLayout>
     <LinearLayout
         app:layout_constraintTop_toBottomOf="@id/lin2"
@@ -93,7 +93,7 @@ cho tất cả các mặt hàng bán tại Four-T Shop đều đi kèm cam kết
             android:layout_marginLeft="10dp"
             android:layout_marginRight="2dp"
             android:text="Hỗ trợ trực tuyến : 0923337890"
-            android:textColor="@color/black"
-            android:textSize="15sp" />
+            android:textColor="#B10A0A"
+            android:textSize="20sp" />
     </LinearLayout>
 </androidx.constraintlayout.widget.ConstraintLayout>

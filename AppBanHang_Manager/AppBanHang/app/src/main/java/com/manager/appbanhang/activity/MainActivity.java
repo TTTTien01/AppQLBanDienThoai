@@ -162,6 +162,7 @@ public class MainActivity extends AppCompatActivity {
                     case 9:
                         //xoa key user
                         Paper.book().delete("user");
+                        Paper.book().delete("giohang");
                         FirebaseAuth.getInstance().signOut();
                         Intent dangnhap = new Intent(getApplicationContext(), DangNhapActivity.class);
                         startActivity(dangnhap);

@@ -15,10 +15,11 @@
 
             <ImageView
                 android:id="@+id/item_imgchitiet"
-                android:layout_width="50dp"
-                android:layout_height="50dp"
+                android:layout_width="57dp"
+                android:layout_height="57dp"
                 android:src="@drawable/person_24" />
             <LinearLayout
+                android:id="@+id/line"
                 android:layout_toEndOf="@id/item_imgchitiet"
                 android:orientation ="vertical"
                 android:padding="5dp"
@@ -28,6 +29,14 @@
                     android:id="@+id/item_tenspchitiet"
                     android:text="Dien thoai"
                     android:textStyle="bold"
+                    android:textSize="15sp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/item_giaspchitiet"
+                    android:layout_marginTop="5dp"
+                    android:text="Gia: "
+                    android:textColor="#000000"
                     android:textSize="15sp"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"/>

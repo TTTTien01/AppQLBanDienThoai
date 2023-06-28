@@ -100,7 +100,7 @@ public class LichSuDonHangActivity extends AppCompatActivity {
         super.onDestroy();
     }
 
-    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
+    @Subscribe(sticky = false, threadMode = ThreadMode.MAIN)
     public void eventDonHang(DonHangEvent event){
         if(event != null ){
             donHang = event.getDonHang();

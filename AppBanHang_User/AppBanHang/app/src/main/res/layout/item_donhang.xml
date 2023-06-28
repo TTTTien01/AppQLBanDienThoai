@@ -9,8 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:elevation="8dp"
-        app:cardCornerRadius="4dp">
+        app:cardCornerRadius="10dp">
         <LinearLayout
+            android:id ="@+id/line"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -21,7 +22,7 @@
                 <TextView
                     android:id ="@+id/iddonhang"
                     android:text="Đơn hàng: 123"
-                    android:textColor ="#F40B0B"
+                    android:textColor ="#971C13"
                     android:textStyle="bold"
                     android:layout_marginLeft ="5dp"
                     android:layout_width="wrap_content"
@@ -29,20 +30,20 @@
                 <TextView
                     android:id ="@+id/tinhtrang"
                     android:text="Tình trạng đơn hàng"
-                    android:textColor ="#F40B0B"
+                    android:textColor ="#971C13"
                     android:textStyle="bold"
                     android:layout_marginLeft ="50dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"/>
             </LinearLayout>
-            <TextView
-                android:id="@+id/lienhe_donhang"
-                android:layout_margin="5dp"
-                android:text="sodien thoại: "
-                android:textColor ="#020202"
-                android:textStyle="bold"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"/>
+                <TextView
+                    android:id="@+id/lienhe_donhang"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="sodien thoại: "
+                    android:textColor="#020202"
+                    android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/diachi_donhang"
@@ -52,6 +53,16 @@
                 android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+
+            <TextView
+                android:id="@+id/diachi_email"
+                android:layout_margin="5dp"
+                android:text="email: "
+                android:textColor ="#020202"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
             <TextView
                 android:id="@+id/tongtien_donhang"
                 android:layout_margin="5dp"
@@ -60,16 +71,23 @@
                 android:textStyle="bold"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
+            <TextView
+                android:id="@+id/tongtien_ngaydat"
+                android:layout_margin="5dp"
+                android:text="Ngay dat: "
+                android:textColor ="#020202"
+                android:textStyle="bold"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
                 android:id="@+id/recyclerview_chitiet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"/>
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
-
-
-
 </androidx.constraintlayout.widget.ConstraintLayout>

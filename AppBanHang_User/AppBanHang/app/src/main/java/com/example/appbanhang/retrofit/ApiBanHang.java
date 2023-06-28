@@ -6,6 +6,8 @@ import com.example.appbanhang.model.MessageModel;
 import com.example.appbanhang.model.SanPhamMoiModel;
 import com.example.appbanhang.model.UserModel;
 
+import java.util.Date;
+
 import io.reactivex.rxjava3.core.Observable;
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -85,6 +87,14 @@ public interface ApiBanHang {
     @POST("updatezalopay.php")
     @FormUrlEncoded
     Observable<MessageModel> updateZalopay(
+            @Field("id") int id,
+            @Field("token") String token
+
+    );
+
+    @POST("updatemommo.php")
+    @FormUrlEncoded
+    Observable<MessageModel> updateMomo(
             @Field("id") int id,
             @Field("token") String token
 

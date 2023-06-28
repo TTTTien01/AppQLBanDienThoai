@@ -77,7 +77,6 @@ public interface ApiBanHang {
             @Field("sodienthoai") String sodienthoai,
             @Field("soluong") int soluong,
             @Field("tongtien") String tongtien,
-          //  @Field("tenKH") String tenKH,
             @Field("chitiet") String chitiet
     );
 
@@ -104,6 +103,7 @@ public interface ApiBanHang {
     Observable<MessageModel> themSp(
             @Field("tensanpham") String tensanpham,
             @Field("gia") String gia,
+            @Field("soluongkho") String soluongkho,
             @Field("hinhanh") String hinhanh,
             @Field("mota") String mota,
             @Field("loai") int id
@@ -114,6 +114,7 @@ public interface ApiBanHang {
     Observable<MessageModel> suaSanPham(
             @Field("tensanpham") String tensanpham,
             @Field("giasp") String gia,
+            @Field("soluongkho") String soluongkho,
             @Field("hinhanh") String hinhanh,
             @Field("mota") String mota,
             @Field("loai") int idloai,

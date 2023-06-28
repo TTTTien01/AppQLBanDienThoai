@@ -112,7 +112,7 @@ public class ThongKeActivity extends AppCompatActivity {
                                     String tongsl = chiTietDonHangModel.getResult().get(i).getTongsoluong();
                                     listdata.add(new PieEntry(Integer.parseInt(String.valueOf(tongsl)), String.valueOf(tensp)));
                                 }
-                                PieDataSet pieDataSet = new PieDataSet(listdata,"Thống kê");
+                                PieDataSet pieDataSet = new PieDataSet(listdata,"Thống kê mặt hàng bán chạy");
                                 PieData data = new PieData();
                                 data.setDataSet(pieDataSet);
                                 data.setValueTextSize(12f);

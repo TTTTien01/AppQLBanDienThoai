@@ -41,7 +41,7 @@ import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class ChitietActivity extends AppCompatActivity {
-    TextView tensp, giasp, mota;
+    TextView tensp, giasp, mota,soluongkho;
     Button btnthem;
     ImageView imghinhanh;
     Spinner spinner;
@@ -49,14 +49,11 @@ public class ChitietActivity extends AppCompatActivity {
     SanPhamMoi sanPhamMoi;
     NotificationBadge badge;
     //
-    DienThoaiAdapter adapterDt;
     List<SanPhamMoi> sanPhamMoiList;
     LinearLayoutManager linearLayoutManager;
     Handler handler = new Handler();
     boolean isLoading = false;
-    //
-    RecyclerView recyclerView;
-    ListView listViewManHinhChinh;
+
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     ApiBanHang apiBanHang;
     int page =1;
@@ -72,82 +69,6 @@ public class ChitietActivity extends AppCompatActivity {
         ActionTooBar();
         initData();
         initControl();
-
-        getData(page);
-        addEventLoad();
-    }
-    private void addEventLoad() {
-        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-            }
-
-            @Override
-            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
-                super.onScrolled(recyclerView, dx, dy);
-                if(isLoading == false){
-                    if(linearLayoutManager.findLastCompletelyVisibleItemPosition() == sanPhamMoiList.size()-1){
-                        isLoading = true;
-                        loadMore();
-                    }
-                }
-            }
-        });
-    }
-
-    private void loadMore() {
-        handler.post(new Runnable() {
-            @Override
-            public void run() {
-                //add null
-                sanPhamMoiList.add(null);
-                adapterDt.notifyItemInserted(sanPhamMoiList.size()-1);
-            }
-        });
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                //remover null
-                sanPhamMoiList.remove(sanPhamMoiList.size()-1);
-                adapterDt.notifyItemRemoved(sanPhamMoiList.size());
-                page = page+1;
-                getData(page);
-                adapterDt.notifyDataSetChanged();
-                isLoading = false;
-            }
-        },2000);
-    }
-
-    private void getData(int page) {
-        compositeDisposable.add(apiBanHang.getSanPham(page,loai)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        sanPhamMoiModel -> {
-                            if (sanPhamMoiModel.isSuccess()){
-                                if(adapterDt == null){
-                                    sanPhamMoiList = sanPhamMoiModel.getResult();
-                                    adapterDt = new DienThoaiAdapter(getApplicationContext(), sanPhamMoiList);
-                                    recyclerView.setAdapter(adapterDt);
-                                }else {
-                                    int vitri = sanPhamMoiList.size()-1;
-                                    int soluongadd = sanPhamMoiModel.getResult().size();
-                                    for(int i = 0; i<soluongadd; i++){
-                                        sanPhamMoiList.add(sanPhamMoiModel.getResult().get(i));
-                                    }
-                                    adapterDt.notifyItemRangeInserted(vitri, soluongadd);
-                                }
-                            }else{
-                                Toast.makeText(getApplicationContext(), "Hết dữ liệu rồi ",Toast.LENGTH_LONG).show();
-                                isLoading = true;
-
-                            }
-                        },
-                        throwable -> {
-                            Toast.makeText(getApplicationContext(), "Không kết nối sever "+ throwable.getMessage(), Toast.LENGTH_LONG).show();
-                        }
-                ));
     }
 
     private void initControl() {
@@ -179,6 +100,7 @@ public class ChitietActivity extends AppCompatActivity {
                 gioHang.setIdsp(sanPhamMoi.getId());
                 gioHang.setTensp(sanPhamMoi.getTensanpham());
                 gioHang.setHinhsp(sanPhamMoi.getHinhanh());
+                gioHang.setSoluongkho(sanPhamMoi.getSoluongkho());
                 Utils.manggiohang.add(gioHang);
             }
 
@@ -192,6 +114,7 @@ public class ChitietActivity extends AppCompatActivity {
             gioHang.setIdsp(sanPhamMoi.getId());
             gioHang.setTensp(sanPhamMoi.getTensanpham());
             gioHang.setHinhsp(sanPhamMoi.getHinhanh());
+            gioHang.setSoluongkho(sanPhamMoi.getSoluongkho());
             Utils.manggiohang.add(gioHang);
 
         }
@@ -206,6 +129,7 @@ public class ChitietActivity extends AppCompatActivity {
         sanPhamMoi = (SanPhamMoi) getIntent().getSerializableExtra("chitiet");
         tensp.setText(sanPhamMoi.getTensanpham());
         mota.setText(sanPhamMoi.getMota());
+        soluongkho.setText("Số lượng kho: " +sanPhamMoi.getSoluongkho() +" sản phẩm");
         if(sanPhamMoi.getHinhanh().contains("http")){
             Glide.with(getApplicationContext()).load(sanPhamMoi.getHinhanh()).into(imghinhanh);
         }else{
@@ -218,6 +142,7 @@ public class ChitietActivity extends AppCompatActivity {
     }
 
     private void initView(){
+        soluongkho = findViewById(R.id.txtsoluongkho);
         tensp = findViewById(R.id.txttensp);
         giasp = findViewById(R.id.txtgiasp);
         mota = findViewById(R.id.txtmotachitiet);
@@ -225,12 +150,6 @@ public class ChitietActivity extends AppCompatActivity {
         spinner = findViewById(R.id.spinner);
         imghinhanh = findViewById(R.id.imgchitiet);
         toolbar = findViewById(R.id.toobar);
-
-        recyclerView = findViewById(R.id.recyclerview_dt);
-        //linearLayoutManager = new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false);
-        linearLayoutManager = new GridLayoutManager(this,2 );
-        recyclerView.setLayoutManager(linearLayoutManager);
-        recyclerView.setHasFixedSize(true);
         sanPhamMoiList = new ArrayList<>();
 
         badge = findViewById(R.id.menu_sl);

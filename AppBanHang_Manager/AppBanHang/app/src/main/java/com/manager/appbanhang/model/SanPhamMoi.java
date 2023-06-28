@@ -6,9 +6,18 @@ public class SanPhamMoi implements Serializable {
     int id;
     String tensanpham;
     String giasp;
+    String soluongkho;
     String hinhanh;
     String mota;
     int loai;
+
+    public String getSoluongkho() {
+        return soluongkho;
+    }
+
+    public void setSoluongkho(String soluongkho) {
+        this.soluongkho = soluongkho;
+    }
 
     public int getId() {
         return id;

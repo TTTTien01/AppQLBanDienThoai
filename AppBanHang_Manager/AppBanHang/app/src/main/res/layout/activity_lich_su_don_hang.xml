@@ -17,6 +17,7 @@
         android:layout_height="?attr/actionBarSize"/>
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview_donhang"
+        android:background="#FAE5E3"
         android:layout_marginTop="5dp"
         android:layout_marginRight="5dp"
         android:layout_marginLeft="5dp"

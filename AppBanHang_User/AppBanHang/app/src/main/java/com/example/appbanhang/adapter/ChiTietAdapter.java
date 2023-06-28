@@ -4,7 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -15,6 +17,7 @@ import com.example.appbanhang.R;
 import com.example.appbanhang.model.Item;
 import com.example.appbanhang.utils.Utils;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class ChiTietAdapter extends RecyclerView.Adapter<ChiTietAdapter.MyViewHodel> {
@@ -41,8 +44,9 @@ public class ChiTietAdapter extends RecyclerView.Adapter<ChiTietAdapter.MyViewHo
     public void onBindViewHolder(@NonNull MyViewHodel holder, int position) {
         Item item = itemList.get(position);
         holder.txtten.setText(item.getTensanpham() + "");
+        DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
+        holder.txtgia.setText("Giá: "+ decimalFormat.format(Double.parseDouble(item.getGiasp()))+" VND");
         holder.txtsoluong.setText("Số lương: "+ item.getSoluong()+ "");
-       // Glide.with(context).load(item.getHinhanh()).into(holder.imagechitiet);
         if(item.getHinhanh().contains("http")){
             Glide.with(context).load(item.getHinhanh()).into(holder.imagechitiet);
         }else{
@@ -59,13 +63,19 @@ public class ChiTietAdapter extends RecyclerView.Adapter<ChiTietAdapter.MyViewHo
 
     public class MyViewHodel extends  RecyclerView.ViewHolder {
         ImageView imagechitiet;
-        TextView txtten, txtsoluong;
+        TextView txtten, txtsoluong, txtgia;
+        RatingBar ratingBar;
+        Button btndanhgia;
 
         public MyViewHodel(@NonNull View itemView) {
             super(itemView);
             imagechitiet  = itemView.findViewById(R.id.item_imgchitiet);
             txtten = itemView.findViewById(R.id.item_tenspchitiet);
             txtsoluong = itemView.findViewById(R.id.item_soluongspchitiet);
+            txtgia = itemView.findViewById(R.id.item_giaspchitiet);
+            //ratingBar = itemView.findViewById(R.id.simpleRatingBar);
+            //btndanhgia = itemView.findViewById(R.id.btnRatingBar);
         }
+
     }
 }

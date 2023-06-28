@@ -16,6 +16,7 @@ import androidx.appcompat.widget.Toolbar;
 import com.google.gson.Gson;
 import com.manager.appbanhang.R;
 import com.manager.appbanhang.model.GioHang;
+import com.manager.appbanhang.model.SanPhamMoi;
 import com.manager.appbanhang.retrofit.ApiBanHang;
 import com.manager.appbanhang.retrofit.RetrofitClient;
 import com.manager.appbanhang.utils.Utils;
@@ -34,6 +35,7 @@ public class ThanhToanActivity extends AppCompatActivity {
     AppCompatButton btndathang;
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     ApiBanHang apiBanHang;
+    SanPhamMoi sanPhamMoi;
     long tongtien;
     int soluong;
 
@@ -70,11 +72,12 @@ public class ThanhToanActivity extends AppCompatActivity {
         txtsodt.setText(Utils.user_current.getPhonenumber());
 
 
+
         btndathang.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 String str_diachi = edtdiachi.getText().toString().trim();
-                if(TextUtils.isEmpty(str_diachi)){
+                if(TextUtils.isEmpty(str_diachi) ){
                 Toast.makeText(getApplicationContext(), "Bạn chưa nhập địa chỉ!!", Toast.LENGTH_SHORT).show();
                  }else{
                     //post data
@@ -93,6 +96,16 @@ public class ThanhToanActivity extends AppCompatActivity {
                                         //xao mang gio hang
                                         for(int i=0; i<Utils.mangmuahang.size(); i++){
                                             GioHang gioHang = Utils.mangmuahang.get(i);
+
+                                          //soluong =  Utils.mangmuahang.get(i).getSoluong();
+                                            //gioHang.setSoluongkho(sanPhamMoi.getSoluongkho());
+                                           // long soluongkho = Long.parseLong(Utils.mangmuahang.get(i).getSoluongkho()) - soluong;
+                                            //gioHang.setSoluongkho(String.valueOf(soluongkho));
+
+                                            //gioHang.setSoluong(soluong + gioHang.getSoluong());
+                                            long soluongkho = Long.parseLong(gioHang.getSoluongkho()) - soluong;
+                                            gioHang.setSoluongkho(String.valueOf(soluongkho));
+
                                             if(Utils.manggiohang.contains(gioHang)){
                                                 Utils.manggiohang.remove(gioHang);
                                             }
@@ -101,6 +114,7 @@ public class ThanhToanActivity extends AppCompatActivity {
                                         Paper.book().write("giohang", Utils.manggiohang);
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                         startActivity(intent);
+                                        //updatesoluongkho();
                                         finish();
                                         },
                                     throwable -> {
@@ -111,6 +125,12 @@ public class ThanhToanActivity extends AppCompatActivity {
             }
         });
     }
+private void updatesoluongkho() {
+    GioHang gioHang = new GioHang();
+    int soluongkho = Integer.parseInt(gioHang.getSoluongkho());
+    // gioHang.setSoluongkho(String.valueOf(soluongkho));
+    gioHang.setSoluongkho(String.valueOf(soluongkho - soluong));
+}
 
     private void initView() {
         apiBanHang = RetrofitClient.getInstance(Utils.BASE_URL).create(ApiBanHang.class);

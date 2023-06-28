@@ -37,7 +37,7 @@ import io.paperdb.Paper;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
-//import vn.momo.momo_partner.AppMoMoLib;
+import vn.momo.momo_partner.AppMoMoLib;
 import vn.zalopay.sdk.Environment;
 import vn.zalopay.sdk.ZaloPayError;
 import vn.zalopay.sdk.ZaloPaySDK;
@@ -47,7 +47,7 @@ public class ThanhToanActivity extends AppCompatActivity {
     Toolbar toolbar;
     TextView txttongtien, txtsodt, txtemail,txttenKH;
     EditText edtdiachi;
-    ImageView btnzalopay;
+    ImageView btnzalopay, btnmomo;
     AppCompatButton btndathang;//btnzalopay
     CompositeDisposable compositeDisposable = new CompositeDisposable();
     ApiBanHang apiBanHang;
@@ -55,11 +55,22 @@ public class ThanhToanActivity extends AppCompatActivity {
     int soluong;
     int iddonhang;
 
+    private String amount = "10000";
+    private String fee = "0";
+    int environment = 0;//developer default
+    private String merchantName = "HoangNgoc";
+    private String merchantCode = "MOMOC2IC20220510";
+    private String merchantNameLabel = "HoangNgoc";
+    private String description = "Mua hàng online";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_thanh_toan);
+        //momo
+        AppMoMoLib.getInstance().setEnvironment(AppMoMoLib.ENVIRONMENT.DEVELOPMENT); // AppMoMoLib.ENVIRONMENT.PRODUCTION
+
         //zalopay
         StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
         StrictMode.setThreadPolicy(policy);
@@ -78,6 +89,102 @@ public class ThanhToanActivity extends AppCompatActivity {
         }
     }
 
+    //Get token through MoMo app
+    private void requestPayment(String iddonhang) {
+        AppMoMoLib.getInstance().setAction(AppMoMoLib.ACTION.PAYMENT);
+        AppMoMoLib.getInstance().setActionType(AppMoMoLib.ACTION_TYPE.GET_TOKEN);
+
+        Map<String, Object> eventValue = new HashMap<>();
+        //client Required
+        eventValue.put("merchantname", merchantName); //Tên đối tác. được đăng ký tại https://business.momo.vn. VD: Google, Apple, Tiki , CGV Cinemas
+        eventValue.put("merchantcode", merchantCode); //Mã đối tác, được cung cấp bởi MoMo tại https://business.momo.vn
+        eventValue.put("amount", amount); //Kiểu integer
+        eventValue.put("orderId", iddonhang); //uniqueue id cho Bill order, giá trị duy nhất cho mỗi đơn hàng
+        eventValue.put("orderLabel", iddonhang); //gán nhãn
+
+        //client Optional - bill info
+        eventValue.put("merchantnamelabel", "Dịch vụ");//gán nhãn
+        eventValue.put("fee", "0"); //Kiểu integer
+        eventValue.put("description", description); //mô tả đơn hàng - short description
+
+        //client extra data
+        eventValue.put("requestId",  merchantCode+"merchant_billId_"+System.currentTimeMillis());
+        eventValue.put("partnerCode", merchantCode);
+        //Example extra data
+        JSONObject objExtraData = new JSONObject();
+        try {
+            objExtraData.put("site_code", "008");
+            objExtraData.put("site_name", "CGV Cresent Mall");
+            objExtraData.put("screen_code", 0);
+            objExtraData.put("screen_name", "Special");
+            objExtraData.put("movie_name", "Kẻ Trộm Mặt Trăng 3");
+            objExtraData.put("movie_format", "2D");
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        eventValue.put("extraData", objExtraData.toString());
+
+        eventValue.put("extra", "");
+        AppMoMoLib.getInstance().requestMoMoCallBack(this, eventValue);
+
+
+    }
+    //Get token callback from MoMo app an submit to server side
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if(requestCode == AppMoMoLib.getInstance().REQUEST_CODE_MOMO && resultCode == -1) {
+            if(data != null) {
+                if(data.getIntExtra("status", -1) == 0) {
+                    //TOKEN IS AVAILABLE
+                    Log.d("thanhcong", data.getStringExtra("message"));
+                    String token = data.getStringExtra("data"); //Token response
+                    compositeDisposable.add(apiBanHang.updateMomo(iddonhang, token)
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(
+                                    messageModel -> {
+                                        if (messageModel.isSuccess()){
+                                            Intent intent=new Intent(getApplicationContext(), MainActivity.class);
+                                            startActivity(intent);
+                                            finish();
+                                        }
+                                    },
+                                    throwable -> {
+                                        Log.d("erro", throwable.getMessage());
+                                    }
+                            ));
+
+
+                    String phoneNumber = data.getStringExtra("phonenumber");
+                    String env = data.getStringExtra("env");
+                    if(env == null){
+                        env = "app";
+                    }
+
+                    if(token != null && !token.equals("")) {
+                        // TODO: send phoneNumber & token to your server side to process payment with MoMo server
+                        // IF Momo topup success, continue to process your order
+                    } else {
+                        Log.d("thanhcong","khong thanh cong" );
+                    }
+                } else if(data.getIntExtra("status", -1) == 1) {
+                    //TOKEN FAIL
+                    String message = data.getStringExtra("message") != null?data.getStringExtra("message"):"Thất bại";
+                    Log.d("thanhcong","khong thanh cong" );
+                } else if(data.getIntExtra("status", -1) == 2) {
+                    //TOKEN FAIL
+                    Log.d("thanhcong","khong thanh cong" );
+                } else {
+                    //TOKEN FAIL
+                    Log.d("thanhcong","khong thanh cong" );
+                }
+            } else {
+                Log.d("thanhcong","khong thanh cong" );
+            }
+        } else {
+            Log.d("thanhcong","khong thanh cong" );
+        }
+    }
     private void initControl() {
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -170,6 +277,44 @@ public class ThanhToanActivity extends AppCompatActivity {
                                     },
                                     throwable -> {
                                         Log.d("error",throwable.getMessage());
+                                    }
+                            ));
+                }
+            }
+        });
+        btnmomo.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                String str_diachi =edtdiachi.getText().toString().trim();
+                if (TextUtils.isEmpty(str_diachi)){
+                    Toast.makeText(getApplicationContext(), "Bạn chưa nhập địa chỉ", Toast.LENGTH_SHORT).show();
+                }else {
+                    //post data
+                    String str_email=Utils.user_current.getEmail();
+                    String str_sdt= Utils.user_current.getPhonenumber();
+                    int id=Utils.user_current.getId();
+                    Log.d("test", new Gson().toJson(Utils.mangmuahang));
+                    compositeDisposable.add(apiBanHang.createOrder(id,str_email,str_diachi,str_sdt,soluong,String.valueOf(tongtien),new Gson().toJson(Utils.mangmuahang))
+                            .subscribeOn(Schedulers.io())
+                            .observeOn(AndroidSchedulers.mainThread())
+                            .subscribe(
+                                    messageModel -> {
+                                        pushNotiToUser();
+                                       // Toast.makeText(getApplicationContext(),"Đặt hàng thành công", Toast.LENGTH_SHORT).show();
+                                        //clear manggiohang bang cach chay qua mangmuahang va clear item trung
+                                        for (int i=0;i<Utils.mangmuahang.size(); i++){
+                                            GioHang gioHang = Utils.mangmuahang.get(i);
+                                            if (Utils.mangmuahang.contains(gioHang)){
+                                                Utils.manggiohang.remove(gioHang);
+                                            }
+                                        }
+                                        Utils.mangmuahang.clear();
+                                        iddonhang= Integer.parseInt(messageModel.getIddonhang());
+                                        requestPayment(messageModel.getIddonhang());
+
+                                    },
+                                    throwable -> {
+                                        Toast.makeText(getApplicationContext(), throwable.getMessage(), Toast.LENGTH_SHORT).show();
                                     }
                             ));
                 }
@@ -268,6 +413,7 @@ public class ThanhToanActivity extends AppCompatActivity {
         edtdiachi = findViewById(R.id.editdiachi);
         btndathang = findViewById(R.id.btndathang);
         btnzalopay = findViewById(R.id.imgzalopay);
+        btnmomo=findViewById(R.id.imgmomo);
     }
 
     @Override

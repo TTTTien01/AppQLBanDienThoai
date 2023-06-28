@@ -1,24 +1,42 @@
 package com.manager.appbanhang.model;
 
+import java.util.Date;
 import java.util.List;
 
 public class DonHang {
     int id;
-    //int idsp;
     int iduser;
-    String tenKH;
+    String username;
     String diachi;
+    String email;
     String sodienthoai;
     String tongtien;
     int tinhtrang;
+    Date ngaydathang;
     List<Item> item;
 
-    public String getTenKH() {
-        return tenKH;
+    public String getEmail() {
+        return email;
     }
 
-    public void setTenKH(String tenKH) {
-        this.tenKH = tenKH;
+    public void setEmail(String email) {
+        email = email;
+    }
+
+    public Date getNgaydathang() {
+        return ngaydathang;
+    }
+
+    public void setNgaydathang(Date ngaydathang) {
+        this.ngaydathang = ngaydathang;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     public int getTinhtrang() {
@@ -44,14 +62,6 @@ public class DonHang {
     public void setId(int id) {
         this.id = id;
     }
-
-    //public int getIdsp() {
-     //   return idsp;
-    //}
-
-   // public void setIdsp(int idsp) {
-   //     this.idsp = idsp;
-   // }
 
     public String getDiachi() {
         return diachi;

@@ -71,8 +71,11 @@ dependencies {
     //zalopay
     implementation("com.squareup.okhttp3:okhttp:4.6.0")
     implementation("commons-codec:commons-codec:1.14")
+    //momo
+    implementation 'com.github.momo-wallet:mobile-sdk:1.0.7'
     //map
     implementation("com.google.android.gms:play-services-maps:18.1.0")
+
 
 
 }

@@ -19,6 +19,7 @@ import com.manager.appbanhang.model.EventBus.DonHangEvent;
 import org.greenrobot.eventbus.EventBus;
 
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHolder> {
@@ -43,12 +44,15 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
         DonHang donHang = listdonhang.get(position);
         //đưa id kiểu int về kiểu chuổi
         holder.txtdonhang.setText("Đơn hàng: " + donHang.getId());
-        holder.tenuser.setText("Khách hàng: " + donHang.getIduser());
+        holder.tenuser.setText("Khách hàng: " + donHang.getUsername());
         holder.lienhe.setText("Số điện thoại: "+ donHang.getSodienthoai());
+        holder.emial.setText("Email: "+donHang.getEmail());
         DecimalFormat decimalFormat = new DecimalFormat("###,###,###");
         holder.tongtien.setText("Tổng tiền: "+ decimalFormat.format(Double.parseDouble(donHang.getTongtien()))+" VND");
         holder.diachi.setText("Địa chỉ: "+donHang.getDiachi());
         holder.tinhtrang.setText(tinhTrangDonHang(donHang.getTinhtrang()));
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        holder.ngaydat.setText("Ngày đặt hàng: "+ format.format(donHang.getNgaydathang()));
         LinearLayoutManager layoutManager = new LinearLayoutManager(
                 holder.reChitiet.getContext(),
                 LinearLayoutManager.VERTICAL,
@@ -102,12 +106,14 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
     }
 
     public class MyViewHolder extends  RecyclerView.ViewHolder implements View.OnLongClickListener {
-        TextView txtdonhang, tinhtrang, diachi, tenuser, lienhe, tongtien;
+        TextView txtdonhang, tinhtrang, diachi, tenuser, lienhe, tongtien, ngaydat, emial;
         RecyclerView reChitiet;
         ItemClickListener listener;
 
         public  MyViewHolder(@NonNull View itemView){
             super(itemView);
+            ngaydat = itemView.findViewById(R.id.tongtien_ngaydat);
+            emial = itemView.findViewById(R.id.diachi_email);
             txtdonhang = itemView.findViewById(R.id.iddonhang);
             reChitiet = itemView.findViewById(R.id.recyclerview_chitiet);
             diachi = itemView.findViewById(R.id.diachi_donhang);
@@ -115,6 +121,7 @@ public class DonHangAdapter extends RecyclerView.Adapter<DonHangAdapter.MyViewHo
             lienhe = itemView.findViewById(R.id.lienhe_donhang);
             tongtien = itemView.findViewById(R.id.tongtien_donhang);
             tinhtrang = itemView.findViewById(R.id.tinhtrang);
+
             itemView.setOnLongClickListener(this);
         }
 
